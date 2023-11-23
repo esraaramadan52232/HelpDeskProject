@@ -27,11 +27,7 @@ const userschema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    roleid :{
-      type: Int32Array, 
-      required: true,
-      
-     },
+    
     
   },
   // schemaOptions
@@ -41,31 +37,6 @@ const userschema = new mongoose.Schema(
   }
 );
 
-const administratorschema = new mongoose.Schema(
-  {
-    
-   
-    rolename :{
-    type: String,
-    required: true,
-  },
-  
-  roletype :[{
-  "roleid" : 1,
-  "rolename" : "User",
-  },
-  {
-  "roleid" : 2,
-  "rolename" : "Administrator",
-  },
-  {
-  "roleid" : 3,
-  "rolename" : "Agent",
-  },
-  ]
-
-  }
-);
 
 
 
