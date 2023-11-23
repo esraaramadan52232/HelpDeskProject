@@ -71,6 +71,27 @@ const administratorschema = new mongoose.Schema(
 
 module.exports = mongoose.model('userModel', userschema);
 
+require('mongoose');
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const mongooseBackup = require('mongoose-backup');
+const CryptoJS = require('crypto-js');
+
+// Use environment variable for encryption key
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || 'defaultEncryptionKey';
+
+const userSchema = new mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    role: { type: String, required: true },
+    salt: { type: String, required: true }
+});
+
+userSchema.pre('save', async function (next) {
+    try {
         // Generate a random salt for password hashing
         const salt = await bcrypt.genSalt(10);
         // Hash the password using the generated salt
@@ -83,6 +104,8 @@ module.exports = mongoose.model('userModel', userschema);
         next(error);
     }
 });
+
+
 
 // Virtual property for temporary password storage
 userSchema.virtual('tempPassword').set(function(password) {
