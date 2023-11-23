@@ -27,7 +27,12 @@ const agentSchema = new mongoose.Schema(
         submajor: {
             type: String,
             required: true,
-        }
+        },
+        available: {
+            type:Boolean,
+            required: true,
+        
+             },
 
     });
 
